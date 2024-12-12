@@ -101,12 +101,19 @@ describe("favorite blog", () => {
         const result = listHelper.favoriteBlog(blogs);
         assert.deepStrictEqual(result, { title, author, likes });
     });
-});
 
-describe("author with most blogs", () => {
-    const result = listHelper.mostBlogs(blogs);
-    assert.deepStrictEqual(result, {
-        author: "Robert C. Martin",
-        blogs: 3,
+    test("author with most blogs", () => {
+        const result = listHelper.mostBlogs(blogs);
+        assert.deepStrictEqual(result, {
+            author: "Robert C. Martin",
+            blogs: 3,
+        });
+    });
+    test("author with most likes", () => {
+        const result = listHelper.mostLikes(blogs);
+        assert.deepStrictEqual(result, {
+            author: "Edsger W. Dijkstra",
+            likes: 17,
+        });
     });
 });

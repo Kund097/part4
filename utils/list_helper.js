@@ -2,35 +2,29 @@ const dummy = (blogs) => {
     return 1;
 };
 
-const totalLikes = (blogs) => {
+const totalLikes = (blogsList) => {
     let likes = 0;
-    blogs.map((blog) => {
+    blogsList.map((blog) => {
         likes += blog.likes;
     });
 
     return likes;
 };
 
-const favoriteBlog = (blogs) => {
-    let maxLikes = blogs[0].likes;
+const favoriteBlog = (blogsList) => {
+    let maxLikes = blogsList[0].likes;
     let indexOfFavorite = 0;
-    blogs.map((blog, index) => {
+    blogsList.map((blog, index) => {
         if (blog.likes > maxLikes) {
             maxLikes = blog.likes;
             indexOfFavorite = index;
         }
     });
-    const { title, author, likes } = blogs[indexOfFavorite];
+    const { title, author, likes } = blogsList[indexOfFavorite];
     return { title, author, likes };
 };
 
 const mostBlogs = (blogsList) => {
-    // blogs.map((blog) => {
-    //     if (!currentAuthor) {
-    //         currentAuthor = blog.author;
-
-    //     }
-    // });
     let author = "";
     let blogs = 0;
     for (let i = 0; i < blogsList.length; i++) {
@@ -48,4 +42,22 @@ const mostBlogs = (blogsList) => {
     return { author, blogs };
 };
 
-module.exports = { dummy, totalLikes, favoriteBlog, mostBlogs };
+const mostLikes = (blogsList) => {
+    let author = "";
+    let likes = 0;
+    for (let i = 0; i < blogsList.length; i++) {
+        let currentAuthor = blogsList[i].author;
+        let currentLikes = 0;
+        blogsList.map((blog) => {
+            currentAuthor === blog.author ? (currentLikes += blog.likes) : "";
+        });
+        if (currentLikes > likes) {
+            likes = currentLikes;
+            author = currentAuthor;
+        }
+    }
+    console.log({ author });
+    return { author, likes };
+};
+
+module.exports = { dummy, totalLikes, favoriteBlog, mostBlogs, mostLikes };
