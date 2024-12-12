@@ -5,5 +5,5 @@ Content-Type: application/json
   "title": "FullStack Course",
   "author": "Matti Luukkainen",
   "url": "fullstackopen.com",
-  "likes": 1000
+  "likes": 100000
 }
