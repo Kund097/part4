@@ -2,6 +2,7 @@ const { test, describe } = require("node:test");
 const assert = require("node:assert");
 const listHelper = require("../utils/list_helper");
 const emptyBlog = [];
+
 const listWithOneBlog = [
     {
         _id: "5a422aa71b54a676234d17f8",
@@ -12,6 +13,7 @@ const listWithOneBlog = [
         __v: 0,
     },
 ];
+
 const blogs = [
     {
         _id: "5a422a851b54a676234d17f7",
