@@ -8,11 +8,16 @@ const app = express();
 app.use(express.json());
 app.use("/api/blogs", blogRouter);
 app.use(cors());
-mongoose
-    .connect(config.MONGODB_URI)
-    .then(() => console.log("Connecting to MongoDB..."))
-    .catch((error) =>
-        console.error(`Error to connecting to database: ${error}`)
-    );
+
+const conectoToDb = async () => {
+    try {
+        await mongoose.connect(config.MONGODB_URI);
+        console.log("Connecting to MongoDB...");
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+conectoToDb();
 
 module.exports = app;
