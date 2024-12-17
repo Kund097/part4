@@ -86,6 +86,13 @@ describe("API tests", () => {
         const titles = response.body.map((e) => e.title);
         assert(titles.includes("React patterns"));
     });
+
+    test("property identifier call 'id' and not '_id'", async () => {
+        const response = await api.get("/api/blogs");
+        const identifier = Object.keys(response.body[0]);
+        console.log(identifier);
+        assert(identifier.includes("id"));
+    });
 });
 
 after(async () => {
