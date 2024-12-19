@@ -12,11 +12,16 @@ blogRouter.get("/", async (request, response) => {
 
 blogRouter.post("/", async (request, response) => {
     try {
-        const blog = new Blog(request.body);
+        const body = request.body;
+        if (!body.likes) {
+            body.likes = 0;
+        }
+        const blog = new Blog(body);
         const result = await blog.save();
         response.status(201).json(result);
     } catch (error) {
-        logger.error(error);
+        // logger.error(error);
+        response.status(400).end();
     }
 });
 

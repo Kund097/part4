@@ -90,8 +90,31 @@ describe("API tests", () => {
     test("property identifier call 'id' and not '_id'", async () => {
         const response = await api.get("/api/blogs");
         const identifier = Object.keys(response.body[0]);
-        console.log(identifier);
         assert(identifier.includes("id"));
+    });
+
+    test("create a new blog POST METHOD", async () => {
+        const totalBlogs = (await Blog.find({})).length + 1;
+        await api
+            .post("/api/blogs")
+            .send({ title: "test" })
+            .expect("Content-Type", /json/)
+            .expect(201);
+        const currentBlogs = await Blog.find({});
+
+        assert.strictEqual(totalBlogs, currentBlogs.length);
+    });
+
+    test("check that if the 'likes' property is missing from the request, it will default to 0.", async () => {
+        const response = await api
+            .post("/api/blogs")
+            .send({ title: "test" })
+            .expect(201);
+        assert.strictEqual(response.body.likes, 0);
+    });
+
+    test("check that if the properties 'title' and 'url' are missing, it will response with code status 400", async () => {
+        await api.post("/api/blogs").send({ likes: 2 }).expect(400);
     });
 });
 
